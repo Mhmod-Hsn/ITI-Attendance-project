@@ -1,0 +1,106 @@
+@@include('./includes/header.html')
+
+
+<h4 class="text-center font-weight-bold text-primary text-uppercase mb-3">Register</h4>
+
+<form id="register-form" class="needs-validation " novalidate>
+
+	<div class="form-group">
+		<input placeholder="firstname" type="text" class="form-control" id="firstname" value="Mahmoud" required>
+		<div class="invalid-feedback">
+			Please provide firstname.
+		</div>
+	</div>
+
+	<div class="form-group">
+		<input placeholder="lastname" type="text" class="form-control" id="lastname" value="Hassan" required>
+		<div class="invalid-feedback">
+			Please provide lastname.
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<input placeholder="address" type="text" class="form-control" id="address" value="address here" required>
+		<div class="invalid-feedback">
+			Please provide address.
+		</div>
+	</div>
+
+	<div class="form-group">
+		<input placeholder="email" type="email" class="form-control" id="email" value="hsn@mail.com" required>
+		<div class="invalid-feedback">
+			Please provide email.
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<input placeholder="age" type="number" class="form-control" id="age" min="18" max="60" value="20" required>
+		<div class="invalid-feedback">
+			Please provide a valid age between 18 and 60.
+		</div>
+	</div>
+
+	<button class="btn btn-primary btn-block" type="submit">Register</button>
+
+	<p class="mt-3 mb-2 text-capitalize">already having an account? <a href="login.html">login</a></p>
+</form>
+
+
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+
+<script>
+	window.addEventListener('load', function () {
+		// check login state
+		redirectLoggedInUser()
+	})
+
+
+	document.querySelector('#register-form').addEventListener('submit', function (event) {
+
+		event.preventDefault();
+
+		let userData = {
+			username: generateUsername(),
+			password: generatePassword(),
+			firstname: document.querySelector('#firstname').value,
+			lastname: document.querySelector('#lastname').value,
+			address: document.querySelector('#address').value,
+			email: document.querySelector('#email').value,
+			age: document.querySelector('#age').value,
+			role: "employee"
+		}
+
+		fetch(`${API_BASE_URL}/users?email=${userData.email}`)
+			.then(response => response.json())
+			.then(data => {
+
+				// if email exists
+				if (data.length !== 0) {
+					toast.fire({ text: 'Email already exists', icon: 'error' })
+					return;
+				}
+
+				// if email doesn't exists
+				fetch(`${API_BASE_URL}/users`, {
+					...fetchOptions,
+					method: 'POST', // or 'PUT'
+					body: JSON.stringify(userData)
+				}).then(response => {
+					if (response.ok) {
+
+						sendEmail(userData.email, userData.username, userData.password).then(msg => {
+							if (msg === 'OK') {
+								toast.fire({
+									text: `Created Successfully, review your email ${userData.email} for credentials`,
+								})
+							}
+						})
+					}
+				})
+			})
+	});
+</script>
+@@include('./includes/footer.html')

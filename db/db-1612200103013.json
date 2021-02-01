@@ -1,0 +1,134 @@
+{
+  "users": [
+    {
+      "username": "hsn",
+      "firstname": "Mahmoud",
+      "lastname": "Hassan",
+      "password": "123",
+      "age": 24,
+      "role": "admin",
+      "attend": [
+        "3/15/2021, 8:50:23 AM",
+        "2/15/2021, 8:50:23 AM",
+        "1/15/2021, 8:50:23 AM",
+        "2/01/2021, 8:50:23 AM",
+        "1/26/2021, 8:50:23 AM",
+        "1/12/2021, 8:50:23 AM",
+        "1/11/2021, 8:50:23 AM"
+      ],
+      "late": [
+        "1/14/2021, 9:23:23 AM",
+        "1/13/2021, 9:23:23 AM",
+        "1/25/2021, 9:23:23 AM",
+        "1/07/2021, 9:23:23 AM"
+      ],
+      "absent": [
+        "2/27/2021, 9:50:23 PM",
+        "1/15/2021, 9:50:23 PM",
+        "1/14/2021, 9:50:23 PM",
+        "2/27/2021, 9:50:23 PM",
+        "2/24/2021, 9:50:23 PM",
+        "1/05/2021, 9:50:23 PM",
+        "1/02/2021, 9:50:23 PM",
+        "1/27/2021, 9:50:23 PM"
+      ],
+      "id": 1
+    },
+    {
+      "id": 2,
+      "username": "hsn1",
+      "firstname": "Mahmoud",
+      "lastname": "Hassan",
+      "password": "123",
+      "role": "employee",
+      "attend": [
+        "3/15/2021, 8:50:23 AM",
+        "2/15/2021, 8:50:23 AM",
+        "1/15/2021, 8:50:23 AM",
+        "2/01/2021, 8:50:23 AM",
+        "1/26/2021, 8:50:23 AM",
+        "1/12/2021, 8:50:23 AM",
+        "1/11/2021, 8:50:23 AM"
+      ],
+      "late": [
+        "1/14/2021, 9:23:23 AM",
+        "1/13/2021, 9:23:23 AM",
+        "1/25/2021, 9:23:23 AM",
+        "1/07/2021, 9:23:23 AM"
+      ],
+      "absent": [
+        "2/27/2021, 9:50:23 PM",
+        "1/15/2021, 9:50:23 PM",
+        "1/14/2021, 9:50:23 PM",
+        "2/27/2021, 9:50:23 PM",
+        "2/24/2021, 9:50:23 PM",
+        "1/05/2021, 9:50:23 PM",
+        "1/02/2021, 9:50:23 PM",
+        "1/27/2021, 9:50:23 PM"
+      ]
+    },
+    {
+      "id": 3,
+      "username": "emp2",
+      "password": "123",
+      "role": "employee",
+      "attend": [],
+      "late": [],
+      "absent": [
+        "1/22/2021, 9:38:16 PM",
+        "1/26/2021, 9:38:16 PM",
+        "1/28/2021, 9:38:16 PM"
+      ]
+    },
+    {
+      "id": 4,
+      "username": "emp1",
+      "password": "123",
+      "role": "employee",
+      "firstname": "Mahmoud",
+      "lastname": "Hassan",
+      "address": "address here",
+      "email": "hsn@mail.com",
+      "age": "20",
+      "attend": [
+        "1/29/2021, 7:27:43 AM"
+      ],
+      "late": [],
+      "absent": []
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
+    },
+    {
+      "username": "1612136119582",
+      "password": "H9ajerDu",
+      "firstname": "Mahmoud",
+      "lastname": "Hassan",
+      "address": "address here",
+      "email": "hsndsad@mail.com",
+      "age": "20",
+      "role": "employee",
+      "id": 7
+    },
+    {
+      "username": "1612136202894",
+      "password": "vE6yAD1s",
+      "firstname": "Mahmoud",
+      "lastname": "Hassan",
+      "address": "address here",
+      "email": "hsn2@mail.com",
+      "age": "33",
+      "role": "employee",
+      "id": 8
+    },
+    {
+      "id": 9
+    },
+    {
+      "id": 10
+    }
+  ]
+}

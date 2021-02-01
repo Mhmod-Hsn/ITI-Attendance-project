@@ -1,0 +1,48 @@
+@@include('./includes/header.html')
+
+
+<h4 class="text-center font-weight-bold text-primary text-uppercase mb-3">Confirm Attendance</h4>
+
+<form id="attendance-form" class="needs-validation " novalidate>
+	<div class="form-group">
+		<label for="employees">Employees</label>
+		<select class="form-control h-100" id="employees" multiple size="10" required>
+		</select>
+		<div class="invalid-feedback">
+			Please select username.
+		</div>
+	</div>
+
+	<button class="btn btn-primary btn-block" type="submit">Confirm Attendance</button>
+</form>
+
+
+<script>
+	window.addEventListener('load', function () {
+		checkAuthAdmin()
+
+		fetch(`${API_BASE_URL}/users?role=employee`)
+			.then(response => response.json())
+			.then(data => {
+				fillUsersToSelect(data)
+			})
+	})
+
+
+	let form = document.querySelector('#attendance-form')
+	form.addEventListener('submit', function (event) {
+		if (form.checkValidity()) {
+			event.preventDefault();
+
+			let attendance = $('#employees').val()
+
+			attendance.forEach(id => {
+				registerAttendance(id, new Date())
+			})
+		}
+	});
+
+
+</script>
+
+@@include('./includes/footer.html')

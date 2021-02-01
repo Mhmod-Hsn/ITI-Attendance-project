@@ -1,0 +1,199 @@
+@@include('./includes/header.html')
+
+<div id="dashboard-page">
+    <h4 class="text-center font-weight-bold text-primary text-uppercase mb-3">
+        Monthly statistics
+    </h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="single-statistics bg-primary text-white attendance text-center border shadow py-2 px-3">
+                <div class="media d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-check fa-3x"></i>
+                    <div class="media-body ml-3 d-flex flex-column align-items-center justify-content-center">
+                        <h3 class="mt-0 font-weight-bolder number"></h3>
+                        <p class="">Attendance</p>
+                    </div>
+                </div>
+                <div class="progress border" style="height: 5px">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 0" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="single-statistics bg-warning text-white late text-center border shadow py-2 px-3">
+                <div class="media d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-minus fa-3x"></i>
+                    <div class="media-body ml-3 d-flex flex-column align-items-center justify-content-center">
+                        <h3 class="mt-0 font-weight-bolder number"></h3>
+                        <p class="">Late</p>
+                    </div>
+                </div>
+                <div class="progress border" style="height: 5px">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 0" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="single-statistics bg-danger text-white absence text-center border shadow py-2 px-3">
+                <div class="media d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-slash fa-3x"></i>
+                    <div class="media-body ml-3 d-flex flex-column align-items-center justify-content-center">
+                        <h3 class="mt-0 font-weight-bolder number"></h3>
+                        <p class="">Absence</p>
+                    </div>
+                </div>
+                <div class="progress border" style="height: 5px">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 0" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="todo">
+                <h3>todo</h3>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <canvas id="myChart" class="my-5" height="250" style="width: 100%"></canvas>
+        </div>
+    </div>
+
+    <ul class="nav nav-pills flex-row text-center font-weight-bold text-uppercase mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item flex-fill px-2" role="presentation">
+            <a class="nav-link active" id="pills-all-emps-tab" data-toggle="pill" href="#pills-all-emps" role="tab"
+                aria-controls="pills-all-emps" aria-selected="true">All Employees</a>
+        </li>
+        <li class="nav-item flex-fill px-2" role="presentation">
+            <a class="nav-link " id="pills-attendance-tab" data-toggle="pill" href="#pills-attendance" role="tab"
+                aria-controls="pills-attendance" aria-selected="false">attendance report</a>
+        </li>
+        <li class="nav-item flex-fill px-2" role="presentation">
+            <a class="nav-link " id="pills-late-tab" data-toggle="pill" href="#pills-late" role="tab"
+                aria-controls="pills-late" aria-selected="false">late report</a>
+        </li>
+        <li class="nav-item flex-fill px-2" role="presentation">
+            <a class="nav-link " id="pills-absent-tab" data-toggle="pill" href="#pills-absent" role="tab"
+                aria-controls="pills-absent" aria-selected="false">absent report</a>
+        </li>
+        <li class="nav-item flex-fill px-2" role="presentation">
+            <a class="nav-link " id="pills-brief-tab" data-toggle="pill" href="#pills-brief" role="tab"
+                aria-controls="pills-brief" aria-selected="false">brief report</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="pills-all-emps" role="tabpanel" aria-labelledby="pills-all-emps-tab">
+            <table id="all-emps-table" class="table my-5 text-center">
+                <thead>
+                    <tr class="bg-primary text-white">
+                        <th scope="col" colspan="4" class="text-center">
+                            Employees report about:
+                            <span class="month-name"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Attendance</th>
+                        <th scope="col">Late</th>
+                        <th scope="col">Absence</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="pills-attendance" role="tabpanel" aria-labelledby="pills-attendance-tab">
+
+            <table id="attend-table" class="table my-5 text-center">
+                <thead>
+                    <tr class="bg-primary text-white">
+                        <th scope="col" colspan="4" class="text-center">
+                            Employees report about:
+                            <span class="month-name"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Attendance</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="pills-late" role="tabpanel" aria-labelledby="pills-late-tab">
+            <table id="late-table" class="table my-5 text-center">
+                <thead>
+                    <tr class="bg-primary text-white">
+                        <th scope="col" colspan="4" class="text-center">
+                            Employees report about:
+                            <span class="month-name"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Late</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="pills-absent" role="tabpanel" aria-labelledby="pills-absent-tab">
+            <table id="absent-table" class="table my-5 text-center">
+                <thead>
+                    <tr class="bg-primary text-white">
+                        <th scope="col" colspan="4" class="text-center">
+                            Employees report about:
+                            <span class="month-name"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Absent</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="pills-brief" role="tabpanel" aria-labelledby="pills-brief-tab">
+            <table id="brief-table" class="table my-5 text-center">
+                <thead>
+                    <tr class="bg-primary text-white">
+                        <th scope="col" colspan="4" class="text-center">
+                            Employees report about:
+                            <span class="month-name"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Absent</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener("load", function () {
+        checkAuthAdmin()
+
+        fetch(`${API_BASE_URL}/users?role=employee`)
+            .then((response) => response.json())
+            .then((data) => {
+                showDashboardStatistics(data)
+            })
+    })
+</script>
+@@include('./includes/footer.html')
