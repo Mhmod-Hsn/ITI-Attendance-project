@@ -14,6 +14,28 @@ const paths = {
   }
 };
 
+exports.default = async function() {
+  // Init serve files from the build folder
+  server.init({
+    port: 8080,
+    ui: {
+      port: 8081 //Or whatever port you want for browsersync ui
+    },
+    server: {
+      baseDir: paths.scripts.dest
+    }
+  });
+
+  // Watch task
+  watch([
+    "*.html",
+    "./css/**/*.scss",
+    "./js/*.js",
+    "./images/**/*.{gif,jpg,png,svg}",
+    "./assets/**/*"
+  ], series(buildAndReload));
+};
+
 // Reload Server
 async function reload() {
   server.reload();
@@ -35,30 +57,6 @@ async function buildAndReload() {
 
   reload();
 }
-
-exports.default = async function() {
-  // Init serve files from the build folder
-  server.init({
-    port: 8080,
-    ui: {
-      port: 8081 //Or whatever port you want for browsersync ui
-    },
-    server: {
-      baseDir: paths.scripts.dest
-    }
-  });
-
-  // Build and reload at the first time
-  buildAndReload();
-  // Watch task
-  watch([
-    "*.html",
-    "'./css/**/*.scss'",
-    "./js/*.js",
-    "./images/**/*.{gif,jpg,png,svg}",
-    "./assets/**/*"
-  ], series(buildAndReload));
-};
 
 
  function includeHTML(){

@@ -260,6 +260,38 @@ function addUser (data) {
     })    
 }
 
+
+function addTodo (data) {
+    return fetch(`${API_BASE_URL}/todos`, {
+        ...fetchOptions,
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(data)
+    }).then(response=>response.json())
+}
+
+function getTodos () {
+    return fetch(`${API_BASE_URL}/todos`, {
+        ...fetchOptions,
+        method: 'GET'
+    }).then(response=>response.json())
+}
+
+function removeTodo (id) {
+    return fetch(`${API_BASE_URL}/todos/${id}`, {
+        ...fetchOptions,
+        method: 'DELETE'
+    }).then(response=>response.json())
+}
+
+function appendTodo(data){
+    $('#todo ul').append(`
+    <li class="">
+        <input type="checkbox" id="todo-${data.id}" data-id="${data.id}">
+        <label for="todo-${data.id}">${data.text}</label>
+    </li>
+    `)
+}
+
 function registerAttendance(id,attendanceTime){
 
     getUser(id)

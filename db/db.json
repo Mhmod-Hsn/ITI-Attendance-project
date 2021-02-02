@@ -89,7 +89,7 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "id": 4,
       "username": "emp1",
       "password": "123",
@@ -156,7 +156,7 @@
       "email": "hsn2@mail.com",
       "age": "33",
       "role": "employee",
-      "active": true,
+      "active": false,
       "id": 8,
       "attend": [
         "3/15/2021, 8:50:23 AM",
@@ -195,7 +195,7 @@
       "email": "hsn@maisl.sscom",
       "age": "20",
       "role": "employee",
-      "active": true,
+      "active": false,
       "id": 9,
       "absent": [
         "2/2/2021, 4:54:32 PM",
@@ -252,6 +252,38 @@
       ],
       "late": [],
       "attend": []
+    }
+  ],
+  "todos": [
+    {
+      "text": "asdasd",
+      "done": false,
+      "id": 1
+    },
+    {
+      "text": "qwfwf",
+      "done": false,
+      "id": 2
+    },
+    {
+      "text": "asasdasd",
+      "done": false,
+      "id": 3
+    },
+    {
+      "text": "qwfqwf",
+      "done": false,
+      "id": 4
+    },
+    {
+      "text": "asasd",
+      "done": false,
+      "id": 5
+    },
+    {
+      "text": "qwg",
+      "done": false,
+      "id": 6
     }
   ]
 }
