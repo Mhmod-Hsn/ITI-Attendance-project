@@ -259,6 +259,28 @@ function addUser (data) {
         body: JSON.stringify(data)
     })    
 }
+function removeUser (id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'var(--danger)',
+        cancelButtonColor: 'var(--primary)',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+              return fetch(`${API_BASE_URL}/users/${id}`, {
+                ...fetchOptions,
+                method: 'DELETE'
+            }).then(response=>response.json())
+            .then(res=>{
+                toast.fire('Deleted successfully!')
+                $(`#inactive-table .remove-user-${id}`).parent('tr').remove()
+            })
+        }
+    })
+}
 
 
 function addTodo (data) {
@@ -461,7 +483,7 @@ function showDashboardStatistics(users){
 
 
         $('#inactive-table').append(`<tr class="${u.role === 'admin'?'table-primary':''}"><td>${u.id}</td><td>${u.username}</td>
-         
+         <td>${u.firstname||''} ${u.lastname||''}</td>
         <td class="${u.active?'d-block':'d-none'} user-${u.id}">
             <button id="deactive" type="button" class="btn btn-danger shadow" data-toggle="tooltip" title="Deactive"
                 data-placement="left" onclick="deactiveEmployee(${u.id})">
@@ -478,6 +500,13 @@ function showDashboardStatistics(users){
         </td>
         
         
+                
+        <td class=" remove-user-${u.id}">
+            <button id="deactive" type="button" class="${u.role==='admin'?'d-none':''} btn btn-danger shadow" data-toggle="tooltip" title="Remove"
+                data-placement="left" onclick="removeUser(${u.id})">
+                <i class="fas fa-times"></i>
+            </button>
+        </td>
         `)
 
 

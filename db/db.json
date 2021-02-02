@@ -71,44 +71,6 @@
       ]
     },
     {
-      "active": false,
-      "id": 3,
-      "username": "emp2",
-      "password": "123",
-      "firstname": "name",
-      "lastname": "last name",
-      "role": "employee",
-      "attend": [],
-      "late": [],
-      "absent": [
-        "1/22/2021, 9:38:16 PM",
-        "1/26/2021, 9:38:16 PM",
-        "1/28/2021, 9:38:16 PM",
-        "2/1/2021, 7:54:14 PM",
-        "2/2/2021, 2:24:04 AM"
-      ]
-    },
-    {
-      "active": false,
-      "id": 4,
-      "username": "emp1",
-      "password": "123",
-      "role": "employee",
-      "firstname": "Ahmed",
-      "lastname": "Hassan",
-      "address": "address here",
-      "email": "hsn@mail.com",
-      "age": "20",
-      "attend": [
-        "1/29/2021, 7:27:43 AM"
-      ],
-      "late": [],
-      "absent": [
-        "2/1/2021, 7:54:07 PM",
-        "2/2/2021, 2:23:58 AM"
-      ]
-    },
-    {
       "username": "1612136119582",
       "password": "H9ajerDu",
       "firstname": "Omar",
@@ -156,7 +118,7 @@
       "email": "hsn2@mail.com",
       "age": "33",
       "role": "employee",
-      "active": false,
+      "active": true,
       "id": 8,
       "attend": [
         "3/15/2021, 8:50:23 AM",
@@ -195,7 +157,7 @@
       "email": "hsn@maisl.sscom",
       "age": "20",
       "role": "employee",
-      "active": false,
+      "active": true,
       "id": 9,
       "absent": [
         "2/2/2021, 4:54:32 PM",
@@ -213,7 +175,7 @@
       "email": "hs1n@mail.com",
       "age": "20",
       "role": "employee",
-      "active": false,
+      "active": true,
       "id": 10,
       "absent": [],
       "late": [],
@@ -254,36 +216,5 @@
       "attend": []
     }
   ],
-  "todos": [
-    {
-      "text": "asdasd",
-      "done": false,
-      "id": 1
-    },
-    {
-      "text": "qwfwf",
-      "done": false,
-      "id": 2
-    },
-    {
-      "text": "asasdasd",
-      "done": false,
-      "id": 3
-    },
-    {
-      "text": "qwfqwf",
-      "done": false,
-      "id": 4
-    },
-    {
-      "text": "asasd",
-      "done": false,
-      "id": 5
-    },
-    {
-      "text": "qwg",
-      "done": false,
-      "id": 6
-    }
-  ]
+  "todos": []
 }
