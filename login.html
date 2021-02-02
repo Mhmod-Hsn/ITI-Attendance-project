@@ -48,6 +48,8 @@
 			)
 				.then((response) => response.json())
 				.then((data) => {
+					console.log(data)
+
 					// if email exists
 					if (data.length === 0) {
 						toast.fire({
@@ -57,7 +59,16 @@
 						})
 						return
 					}
-					console.log(data)
+					else if (data[0].active === false) {
+						toast.fire({
+							text:
+								"This account is not active, contact administrator",
+							icon: "error",
+						})
+						return
+					}
+
+					// console.log(data)
 					toast.fire({ text: "Correct" })
 
 					// save to localstorage
@@ -68,6 +79,7 @@
 
 					//redirect
 					redirectLoggedInUser()
+
 				})
 		})
 </script>

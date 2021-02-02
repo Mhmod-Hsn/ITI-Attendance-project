@@ -30,3 +30,31 @@
 ### Dashboard
 
 ![Screenshot4](<screenshots/Screenshot%20(4).png>)
+
+### Inactivation Accounts
+
+![Screenshot4](<screenshots/Screenshot%20(7).png>)
+
+### All Employees Brief
+
+![Screenshot4](<screenshots/Screenshot%20(8).png>)
+
+### Attendance report
+
+![Screenshot4](<screenshots/Screenshot%20(9).png>)
+
+### Late report
+
+![Screenshot4](<screenshots/Screenshot%20(10).png>)
+
+### Absence report
+
+![Screenshot4](<screenshots/Screenshot%20(11).png>)
+
+### Brief report
+
+![Screenshot4](<screenshots/Screenshot%20(12).png>)
+
+### Activation/Deactivation users
+
+![Screenshot4](<screenshots/Screenshot%20(13).png>)

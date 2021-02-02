@@ -4,10 +4,17 @@ const fetchOptions = {
         'Content-Type': 'application/json',
     }
 }
-  
-const Opentime = '07:00:00 AM'
-const maxLateTime = '09:30:00 AM'
-const dayStartime = '09:00:00 AM'
+
+const today = new Date()
+//7:00:00 AM
+const Opentime = new Date(today.getFullYear(), today.getMonth(), today.getDay() , 7, 00, 00)
+
+//9:30:00 AM
+const maxLateTime = new Date(today.getFullYear(), today.getMonth(), today.getDay() , 9, 30, 00)
+
+//9:00:00 AM
+const dayStartime = new Date(today.getFullYear(), today.getMonth(), today.getDay() , 9, 00, 00)
+
 monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
@@ -20,17 +27,19 @@ window.addEventListener('load', function() {
 
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.getElementsByClassName('needs-validation');
+
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
         form.addEventListener('submit', function(event) {
             if (!form.checkValidity()) {
                 event.preventDefault();
-                event.stopPropagation();
+                event.stopPropagation(); 
             }
             form.classList.add('was-validated');
+            event.preventDefault();
+            event.stopPropagation(); 
         }, false);
     });
-
 
     // hide Loader
     document.querySelector('#loader').classList.add('hidden');
@@ -57,12 +66,10 @@ window.addEventListener('load', function() {
         }
     });
 
-
     // remove floating buttons
     if($('#register-form,#login-form').length){
         $('#floating-buttons').remove()
     }
-
 
     //get users
     getUsers()
@@ -128,15 +135,6 @@ function redirectLoggedInUser(){
     }
 }
 
-
-/*
-function fillAttendanceDateTime(fireToast = true){
-    $('#attendance-time').val(new Date().toLocaleTimeString('en-EG',{ hour12: false }))
-    if (fireToast)
-        toast.fire('Time updated successfully')
-}
-*/
-
 function fillUsersToSelect(users){
     let emps =  []
 
@@ -185,6 +183,10 @@ function fillAllUsersToSelect(users){
     })
 }
 
+// function getTodos () {
+//     return fetch(`${API_BASE_URL}/todos`)
+//         .then(response => {return response.json()})
+// }
 function getUsers () {
     fetch(`${API_BASE_URL}/users`)
         .then(response => response.json())
@@ -201,14 +203,61 @@ function getUser (id) {
             return data
         })
 }
+function deactiveEmployee(userID){
+    let user
+    getUser(userID)
+    .then(response=>{
+        user = response
+        user.active = false
+
+        editUser(userID,user)
+        .then(response=>{
+            $(`#inactive-table .user-${userID}`).toggleClass('d-none').toggleClass('d-block')
+            toast.fire(`User ${user.firstname} ${user.lastname} deactivated successfully`)
+        })
+    })
+}
+function activeEmployee(userID){
+    let user
+    getUser(userID)
+    .then(response=>{
+        user = response
+        user.active = true
+
+        editUser(userID,user)
+        .then(response=>{
+            $(`#inactive-table .user-${userID}`).toggleClass('d-none').toggleClass('d-block')
+            toast.fire(`User ${user.firstname} ${user.lastname} activated successfully`)
+        })
+    })
+    
+}
+
+function checkUserExist (filter) {
+    return fetch(`${API_BASE_URL}/users/?${filter}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            return data.length===0?false:true
+        })
+}
+
 function editUser (id,data) {
-    fetch(`${API_BASE_URL}/users/${id}`, {
+    return fetch(`${API_BASE_URL}/users/${id}`, {
         ...fetchOptions,
         method: 'PUT', // or 'PUT'
         body: JSON.stringify(data)
-    }).then(response => {
-        return response
     })
+    .then(response =>  response.json())
+    .then(data=> {return data})
+}
+
+function addUser (data) {
+    return fetch(`${API_BASE_URL}/users`, {
+        ...fetchOptions,
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(data)
+    })    
 }
 
 function registerAttendance(id,attendanceTime){
@@ -217,22 +266,21 @@ function registerAttendance(id,attendanceTime){
         .then(data=>{
             let tempUser = data;
             let currentTime = new Date(attendanceTime).toLocaleTimeString()
+            
 
-            //wrong time
-            if (
-                currentTime <= Opentime
-                &&
-                currentTime >= '00:00:00 AM'
-            ){
-                toast.fire({text: 'Wrong Time',icon: 'error'})
-            }
+            // FOR FAKE TIME TESTING PURPOSES ONLY
 
+            // attendanceTime=  new Date(today.getFullYear(), today.getMonth(), today.getDay() , 9, 25, 00)
+            
+            // console.log("attendanceTime",attendanceTime)
+            // console.log("dayStartime",dayStartime)
+            // console.log("Opentime",Opentime)
 
             //attend
-            else if (
-                currentTime <= dayStartime
+            if (
+                attendanceTime <= dayStartime
                 &&
-                currentTime >= Opentime
+                attendanceTime >= Opentime
             ){
                 tempUser.attend.push(attendanceTime.toLocaleString())
                 toast.fire({text: `${tempUser.firstname} ${tempUser.lastname} attended at ${currentTime}`})
@@ -240,9 +288,9 @@ function registerAttendance(id,attendanceTime){
 
             //late
             else if (
-                currentTime <= maxLateTime
+                attendanceTime <= maxLateTime
                 &&
-                currentTime > dayStartime
+                attendanceTime > dayStartime
             ){
                 tempUser.late.push(attendanceTime.toLocaleString())
                 toast.fire({text: `${tempUser.firstname} ${tempUser.lastname} attended (late) at ${currentTime}`})
@@ -272,8 +320,6 @@ const asyncLocalStorage = {
         });
     }
 };
-
-
 
 function ShowUserStatistics(user){
     // clear table
@@ -342,13 +388,7 @@ function ShowUserStatistics(user){
     document.querySelector('#daily-table .month-name').innerText  = monthNames[new Date().getMonth()]
 }
 
-
-
-
 function showDashboardStatistics(users){
-
-
-
     /* Get current Month only Attendance */
     let attend = 0,
         absent = 0,
@@ -376,14 +416,37 @@ function showDashboardStatistics(users){
         absent += currentUser.absent
         late += currentUser.late
 
-        $('#all-emps-table').append(`<tr><td>${u.firstname||''} ${u.lastname||''}</td><td>${currentUser.attend}</td><td>${currentUser.late}</td><td>${currentUser.absent}</td></tr>`)
+        $('#all-emps-table').append(`<tr class="${u.role === 'admin'?'table-primary':''}"><td>${u.username}</td><td>${u.firstname||''} ${u.lastname||''}</td><td>${currentUser.attend}</td><td>${currentUser.late}</td><td>${currentUser.absent}</td></tr>`)
 
-        $('#attend-table').append(`<tr><td>${u.firstname||''} ${u.lastname||''}</td><td>${currentUser.attend}</td>`)
+        $('#attend-table').append(`<tr class="${u.role === 'admin'?'table-primary':''}"><td>${u.username}</td><td>${u.firstname||''} ${u.lastname||''}</td><td>${currentUser.attend}</td>`)
 
-        $('#late-table').append(`<tr><td>${u.firstname||''} ${u.lastname||''}</td><td>${currentUser.late}</td>`)
+        $('#late-table').append(`<tr class="${u.role === 'admin'?'table-primary':''}"><td>${u.username}</td><td>${u.firstname||''} ${u.lastname||''}</td><td>${currentUser.late}</td>`)
 
-        $('#absent-table').append(`<tr><td>${u.firstname||''} ${u.lastname||''}</td><td>${currentUser.absent}</td>`)
-        $('#absent-table').append(`<tr><td>${u.firstname||''} ${u.lastname||''}</td><td>${u.address}</td>`)
+        $('#absent-table').append(`<tr class="${u.role === 'admin'?'table-primary':''}"><td>${u.username}</td><td>${u.firstname||''} ${u.lastname||''}</td><td>${currentUser.absent}</td>`)
+
+        $('#brief-table').append(`<tr class="${u.role === 'admin'?'table-primary':''}"><td>${u.id}</td><td>${u.username}</td><td>${u.firstname||''} ${u.lastname||''}</td><td>${u.address||''}</td><td>${u.age||''}</td><td>${u.role}</td>`)
+
+
+
+        $('#inactive-table').append(`<tr class="${u.role === 'admin'?'table-primary':''}"><td>${u.id}</td><td>${u.username}</td>
+         
+        <td class="${u.active?'d-block':'d-none'} user-${u.id}">
+            <button id="deactive" type="button" class="btn btn-danger shadow" data-toggle="tooltip" title="Deactive"
+                data-placement="left" onclick="deactiveEmployee(${u.id})">
+                <i class="fas fa-user-lock"></i>
+            </button>
+        </td>
+
+                
+        <td class="${!u.active?'d-block':'d-none'} user-${u.id}">
+            <button id="deactive" type="button" class="btn btn-primary shadow" data-toggle="tooltip" title="Active"
+                data-placement="left" onclick="activeEmployee(${u.id})">
+                <i class="fas fa-lock-open"></i>
+            </button>
+        </td>
+        
+        
+        `)
 
 
     })
@@ -427,7 +490,6 @@ function showDashboardStatistics(users){
 
 }
 
-
 function sendEmail(to,username,password) {
     return Email.send({
         Host : "smtp.gmail.com",
@@ -439,6 +501,7 @@ function sendEmail(to,username,password) {
         Body : `Username ${username} <br/> Password ${password}`
     })
 }
+
 function generatePassword() {
     var length = 8,
         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
@@ -448,6 +511,7 @@ function generatePassword() {
     }
     return retVal;
 }
+
 function generateUsername() {
     return new Date().getTime().toString();
 }

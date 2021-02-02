@@ -1,4 +1,4 @@
-const gulp        = require('gulp');
+const gulp = require('gulp');
 const fileinclude = require('gulp-file-include');
 const server = require('browser-sync').create();
 const { watch, series } = require('gulp');
@@ -27,11 +27,11 @@ async function copyAssets() {
 
 // Build files html and reload server
 async function buildAndReload() {
-  await includeHTML();
-  await copyAssets();
-  await compileSass();
-  await js();
-  await images();
+   includeHTML();
+   copyAssets();
+   compileSass();
+   js();
+   images();
 
   reload();
 }
@@ -39,38 +39,29 @@ async function buildAndReload() {
 exports.default = async function() {
   // Init serve files from the build folder
   server.init({
+    port: 8080,
+    ui: {
+      port: 8081 //Or whatever port you want for browsersync ui
+    },
     server: {
       baseDir: paths.scripts.dest
     }
   });
 
-    // Build and reload at the first time
+  // Build and reload at the first time
   buildAndReload();
   // Watch task
   watch([
     "*.html",
-    "'./sass/**/*.scss'",
+    "'./css/**/*.scss'",
     "./js/*.js",
     "./images/**/*.{gif,jpg,png,svg}",
     "./assets/**/*"
   ], series(buildAndReload));
-
-  // // Watch html task
-  // watch('./*.html',  includeHTML);
-
-  // // Watch Sass task
-  // watch('./sass/**/*.scss',  series(compileSass));
-
-  // // Watch js task
-  // watch("./js/*.js", js);
-    
-  // // Watch images task
-  // watch("./images/**/*.{gif,jpg,png,svg}", images);
-    
 };
 
 
-async function includeHTML(){
+ function includeHTML(){
   return gulp.src([
     '*.html',
     '!header.html', // ignore
@@ -84,17 +75,16 @@ async function includeHTML(){
 }
 
 // Sass compiler
-async function compileSass() {
-  gulp.src('./sass/**/*.scss')
+ function compileSass() {
+  gulp.src('./css/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build/assets/css'));
 }
-async function js() {
+ function js() {
   gulp.src("./js/*.js")
-    .pipe(concat("script.js"))
     .pipe(gulp.dest("./build/assets/js"));
 }
-async function images() {
+ function images() {
   gulp.src(['./images/**/*.{gif,jpg,png,svg}'])
       .pipe(gulp.dest('./build/assets/images'));
 }

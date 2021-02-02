@@ -8195,3 +8195,8 @@ label,
 div#dashboard-page {
   min-width: 800px;
   max-width: 100%; }
+
+#todo li {
+  transition: all 0.3s ease-in-out; }
+  #todo li.done {
+    opacity: 0.5; }

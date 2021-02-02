@@ -70,36 +70,36 @@
 			address: document.querySelector('#address').value,
 			email: document.querySelector('#email').value,
 			age: document.querySelector('#age').value,
-			role: "employee"
+			absent: [],
+			late: [],
+			attend: [],
+			role: "employee",
+			active: false
 		}
-
-		fetch(`${API_BASE_URL}/users?email=${userData.email}`)
-			.then(response => response.json())
-			.then(data => {
-
+		checkUserExist(`email=${userData.email}`)
+			.then(exist => {
 				// if email exists
-				if (data.length !== 0) {
+				if (exist) {
 					toast.fire({ text: 'Email already exists', icon: 'error' })
 					return;
 				}
 
-				// if email doesn't exists
-				fetch(`${API_BASE_URL}/users`, {
-					...fetchOptions,
-					method: 'POST', // or 'PUT'
-					body: JSON.stringify(userData)
-				}).then(response => {
-					if (response.ok) {
+				addUser(userData)
+					.then(response => {
+						if (response.ok) {
 
-						sendEmail(userData.email, userData.username, userData.password).then(msg => {
-							if (msg === 'OK') {
-								toast.fire({
-									text: `Created Successfully, review your email ${userData.email} for credentials`,
-								})
-							}
-						})
-					}
-				})
+							// send email to confirm username and password
+							sendEmail(userData.email, userData.username, userData.password).then(msg => {
+								if (msg === 'OK') {
+									toast.fire({
+										text: `Created Successfully, review your email ${userData.email} for credentials`,
+									}).then(() => {
+										window.location.replace("/login.html");
+									})
+								}
+							})
+						}
+					})
 			})
 	});
 </script>
