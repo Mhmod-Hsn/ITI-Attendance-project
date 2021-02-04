@@ -8,6 +8,10 @@
 
 > json-server --watch db/db.json
 
+### Launch JSON Server
+
+> build files located in ./build directory 
+
 ### Project Screenshots
 
 ### Register
