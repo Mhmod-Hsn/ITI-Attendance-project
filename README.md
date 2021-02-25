@@ -8,7 +8,7 @@
 
 > json-server --watch db/db.json
 
-### Launch JSON Server
+### Build dist
 
 > build files located in ./build directory 
 
